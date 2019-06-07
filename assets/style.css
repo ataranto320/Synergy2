@@ -4,3 +4,8 @@ main {
     padding: 15px;
     margin: auto;
 }
+
+/* Prevents slides from flashing */
+#slides {
+    display: none;
+  }
