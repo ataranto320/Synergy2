@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <style>
+        body,html{
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #slide{
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+            position: absolute;
+            pointer-events: none;
+            /* transition: ease-in-out; */
+        }
+
+        
+        </style>
+
+    <img id="slide">
+
+    <script>
+        // start point
+var i = 0; 
+var images = [];
+var time = 5000;
+
+//img lists
+images[0] = 'assets/imgs/cityHD.jpg';
+images[1] = 'assets/imgs/townHD.jpg';
+images[2] = 'assets/imgs/village.jpg';
+images[3] = 'assets/imgs/beachhouse.jpg';
+images[4] = 'assets/imgs/oldworld.jpg';
+images[5] = 'assets/imgs/southerntrees.jpg'
+images[6] = 'assets/imgs/countryside.jpg'
+
+//change img
+function changeImg(){
+    document.getElementById("slide").setAttribute("src", images[i]);
+    if (i < images.length - 1){
+        i++;
+    } else {
+        i = 0;
+    }
+
+    setTimeout("changeImg()", time);
+}
+
+window.onload = changeImg;
+    </script>
+</body>
+
+</html>
