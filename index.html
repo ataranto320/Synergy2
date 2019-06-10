@@ -19,8 +19,9 @@
 
     <img id='slide' src="" alt="">
 
+ 
 
-    <main role="main" class="mt-4 container">
+    <main role="main" class="mt-5 container">
         <div class="container">
             <img class='d-inline-block align-top' height='100' width='100' src="https://image.flaticon.com/icons/png/512/36/36512.png"
                 alt="">
@@ -40,7 +41,7 @@
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                         </div>
-                        <input id='state' type="text" class="form-control" placeholder="Desired State ('OH')">
+                        <input id='state' type="text" class="form-control" placeholder="Desired State ('NY')">
                     </div>
                 </div>
                 <div class="col-auto">
@@ -49,7 +50,7 @@
                         <div class="input-group-prepend">
                         </div>
                         <input id='status' type="text" class="form-control" placeholder="Marital Status">
-                    </div>
+                    </div>  
                 </div>
                 <div class="col-auto">
                     <label class="sr-only" for="inlineFormInputGroup">Family</label>
@@ -63,10 +64,11 @@
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                            
-                            <select class="custom-select"id="inputGroupSelect03" aria-label="Example select with button addon">
-                                <option selected>Job Status...</option>
+                            <select  class="custom-select"id="inputGroupSelect03" aria-label="Example select with button addon">
+                                <option id='job' selected>Job Status...</option>
                                 <option value="Employed">Employed</option>
                                 <option value="Unemployed">Unemployed</option>
+                                <option value="Retired">Self Employed</option>
                                 <option value="Retired">Retired</option>
                             </select>
                         </div>
@@ -82,14 +84,15 @@
     </main>
      <!-- /.container -->
 
+<div id="spinner" class="text-center text-primary">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+     
     <!-- Crime data results by state -->
     <div class="mx-auto container results-card col-6">
-        <div class="card">
-            <div class="card-header text-white bg-danger">FBI Crime Data - Burgalaries</div>
-            <div  id='crime-results'class="card-body">
-                <!-- Append crime data results here -->
-            </div>
-        </div>
+        <!-- Append FBI Card here -->
     </div>
    
 

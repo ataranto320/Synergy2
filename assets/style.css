@@ -31,4 +31,11 @@ body,html{
        }
 
 
+.fbi, .card-body {
+  font-size: 15px !important;
+  color: blue !important;
+}
 
+.card {
+    border: solid 2px blue !important;
+}

@@ -24,11 +24,17 @@ var images = [];
 var time = 5000;
 
 //img lists
-images[0] = 'assets/images/city.jpg';
-images[1] = 'assets/images/town.jpg';
+images[0] = 'assets/images/cityHD.jpg';
+images[1] = 'assets/images/townHD.jpg';
 images[2] = 'assets/images/village.jpg';
 images[3] = 'assets/images/beachhouse.jpg';
 images[4] = 'assets/images/oldworld.jpg';
+images[5] = 'assets/images/southerntrees.jpg';
+images[6] = 'assets/images/countryside.jpg';
+
+
+
+
 
 //change img
 function changeImg() {
@@ -44,43 +50,107 @@ function changeImg() {
 
 window.onload = changeImg;
 
-function logResults(json) {
-    console.log(json);
+// Calls to FBI crime data API
+var startYear = "2010";
+var endYear = "2010";
+
+function fbiCall3() {
+    var offense = 'burglary';
+    var location = $("#state").val().trim();
+    queryURL = "https://cors-anywhere.herokuapp.com/https://api.usa.gov/crime/fbi/sapi/api/summarized/state/" + location + "/" + offense + "/" + startYear + "/" + endYear + "?api_key=ChwrQihADYg80bXGfi0547Dvxtx511wXFSmx7nYm";
+    $.ajax({
+        url: queryURL,
+        method: "GET",
+
+    }).then(function (response) {
+        var count = 0;
+        console.log(response);
+        for (var i = 0; i < response.results.length; i++) {
+            count += response.results[i].actual;
+        }
+        $("#crime-data").append(`<p class='fbi mx-2 mt-2'>Total of ${count} ${offense} cases reported from ${location} from  ${startYear} to ${endYear}</p></div></div>`);
+
+    })
 }
 
-
-function fbiCall() {
-    $(".results-card").show();
+function fbiCall2() {
+ 
+    var offense = 'rape';
     var location = $("#state").val().trim();
-    queryURL = "https://cors-anywhere.herokuapp.com/http://api.usa.gov/crime/fbi/sapi/api/summarized/state/" + location + "/burglary/2005/2012?api_key=ChwrQihADYg80bXGfi0547Dvxtx511wXFSmx7nYm";
+    queryURL = "https://cors-anywhere.herokuapp.com/https://api.usa.gov/crime/fbi/sapi/api/summarized/state/" + location + "/" + offense + "/" + startYear + "/" + endYear + "?api_key=ChwrQihADYg80bXGfi0547Dvxtx511wXFSmx7nYm";
 
     $.ajax({
         url: queryURL,
         method: "GET",
 
-    }).then(function(response){
-        console.log(response.results);
+    }).then(function (response) {
+        var count = 0;
+        console.log(response);
         for (var i = 0; i < response.results.length; i++) {
-            $("#crime-results").append("<p>") + response.results[i];
+            count += response.results[i].actual;
         }
+        $("#crime-data").append(`<p class='fbi mx-2 mt-2'>Total of ${count} ${offense} cases reported from ${location} from  ${startYear} to ${endYear}</p>`);
+
     })
 }
 
+function fbiCall() {
+    $("#spinner").show();
+    var offense = 'homicide';
+    var location = $("#state").val().trim();
+    queryURL = "https://cors-anywhere.herokuapp.com/https://api.usa.gov/crime/fbi/sapi/api/summarized/state/" + location + "/" + offense + "/" + startYear + "/" + endYear + "?api_key=ChwrQihADYg80bXGfi0547Dvxtx511wXFSmx7nYm";
+
+    $.ajax({
+        url: queryURL,
+        method: "GET",
+
+    }).then(function (response) {
+        var count = 0;
+        console.log(response);
+        for (var i = 0; i < response.results.length; i++) {
+            count += response.results[i].actual;
+        }
+        $(".results-card").append(`<div class='card'><div class='card-header text-white bg-primary'>FBI Crime Stats</div><div id="crime-data"class=''card-body text-center> <p class='fbi mx-2 mt-2'>Total of ${count} ${offense} cases reported from ${location} from  ${startYear} to ${endYear}</p></div></div>`);
+        $("#spinner").hide();
+    })
+}
+
+// Zillow API call
+
+function zillowCall() {
+    var location = $("#state").val().trim();
+    var apiKey = "X1-ZWz1h4nz2xuyvf_aovt1";
+    queryURL = "https://cors-anywhere.herokuapp.com/http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id=X1-ZWz1h4nz2xuyvf_aovt1&state=NY&output='json'";
+
+        $.ajax({
+            url: queryURL,
+            method: "GET",
+
+        }).then(function (response) {
+            console.log(response);
+        })
+}
+
+
 
 $(document).on("click", "#search", function (event) {
+   
     event.preventDefault();
+    
     harp.play();
     var state = $("#state").val().trim();
     var age = $("#age").val().trim();
     var status = $("#status").val().trim();
-    var kids  = $("#kids").val().trim();
+    var kids = $("#kids").val().trim();
+    var job = $("#job").val().trim();
 
 
     var newSearch = {
         state: state,
         age: age,
         status: status,
-        kids: kids
+        kids: kids,
+        job: job
     }
 
     console.log(newSearch);
@@ -88,15 +158,16 @@ $(document).on("click", "#search", function (event) {
     database.ref().push(newSearch);
 
     fbiCall();
+    fbiCall2();
+    fbiCall3();
+    zillowCall();
 
     $("#city").val("");
     $("#age").val("");
     $("#status").val("");
     $("#kids").val("");
-
-
 })
 
-$(document).ready(function () {
-    $(".results-card").hide();
+$(document).ready(function() {
+    $("#spinner").hide();
 })
