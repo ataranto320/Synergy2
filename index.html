@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <title>Project Synergy</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -15,27 +17,70 @@
 
 <body>
 
-    <main role="main" class="container">
-        <h1>Search for a location</h1>
-        <p class="lead">Find a place to live</p>
+    <img id='slide' src="" alt="">
+
+
+    <main role="main" class="mt-4 container">
+        <div class="container">
+            <img class='d-inline-block align-top' height='100' width='100'
+                src="https://image.flaticon.com/icons/png/512/36/36512.png" alt="">
+            <h1 class="display-2 text-white d-inline-block">Bird Box</h1>
+            <p class="lead text-white mx-5 mb-4"> The tool that helps you find your ideal place to live</p>
+        </div>
+
         <!-- Age, Job Status, City, Salary -->
-        <form>
+        <form class="mx-5">
             <div class="form-row align-items-center">
                 <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInput">Name</label>
-                    <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Jane Doe">
+                    <label class="sr-only" for="inlineFormInput">Age</label>
+                    <input type="text" class="form-control mb-2" id="age" placeholder="Age">
                 </div>
                 <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup">City</label>
+                    <label class="sr-only" for="inlineFormInputGroup">State</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                            <div class="input-group-text">@</div>
                         </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="City">
+                        <input id='state' type="text" class="form-control" placeholder="Desired State ('OH')">
                     </div>
                 </div>
                 <div class="col-auto">
-                    <button type="submit" class="btn btn-primary mb-2">Search</button>
+                    <label class="sr-only" for="inlineFormInputGroup">Status</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                        </div>
+                        <input id='status' type="text" class="form-control" placeholder="Marital Status">
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <label class="sr-only" for="inlineFormInputGroup">Family</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                        </div>
+                        <input id='kids' type="text" class="form-control" placeholder="Any kids?">
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <label class="sr-only" for="inlineFormInput">Desired Job</label>
+                    <input type="text" class="form-control mb-2" id="job" placeholder="Job Title">
+                </div>
+                <div class="col-auto">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+
+                            <select class="custom-select" id="inputGroupSelect03"
+                                aria-label="Example select with button addon">
+                                <option selected>Job Status...</option>
+                                <option value="Employed">Employed</option>
+                                <option value="Unemployed">Unemployed</option>
+                                <option value="Retired">Retired</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-auto mt-3 mx-auto">
+                    <button id='search' type='submit' value='Submit' class="btn btn-primary mb-2">Search</button>
                 </div>
             </div>
         </form>
@@ -45,16 +90,39 @@
     <img name="slide" width="400" height="200">
     <!-- /.container -->
 
+    <!-- Crime data results by state -->
+    <div class="mx-auto container results-card col-6">
+        <div class="card">
+            <div class="card-header text-white bg-danger">FBI Crime Data - Burgalaries</div>
+            <div id='crime-results' class="card-body">
+                <!-- Append crime data results here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Job results by state -->
+    <div class="mx-auto container results-card col-6">
+        <div class="card">
+            <div class="card-header text-white bg-danger">USA Jobs Data - Positions</div>
+            <div id='job-results' class="card-body">
+                <!-- Append job data results here -->
+            </div>
+        </div>
+    </div>
+
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+
+    <!-- Connect to firebase -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-database.js"></script>
+    <script type="text/javascript" src="assets/app.js"></script>
+
 </body>
 
 </html>
