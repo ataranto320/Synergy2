@@ -27,12 +27,28 @@
 //      console.log(response);
 //  });
 
- var college = "college";
- var queryURL = "http://api.data.gov/ed/collegescorecard/v1/schools/search?" + name + "&api_key=ugQuY3Rxl5tYqCXMIvIGfUGbL5t3hMrSFNlo5NBb";
 
- $.ajax({
-     url: queryURL,
-     method: "GET"
- }).then(function(response){
-     console.log(response);
- });
+//  var college = "college";
+//  var name = "ny"
+//  var queryURL = "http://api.data.gov/ed/collegescorecard/v1/schools/search?" + name + "&api_key=ugQuY3Rxl5tYqCXMIvIGfUGbL5t3hMrSFNlo5NBb";
+// var queryURL = "http://api.data.gov/ed/collegescorecard/v1/schools?school.state=" + name + "&fields=school.name,school.city,school.school_url" + "&api_key=ugQuY3Rxl5tYqCXMIvIGfUGbL5t3hMrSFNlo5NBb";
+
+//college api
+$(document).ready(function() {
+   $( "#test" ).submit(function( event ) {
+        event.preventDefault();
+        var name = $( "input:first" ).val()
+        ajaxCall(name);
+    });
+
+    function ajaxCall(name) {
+        var queryURL = "http://api.data.gov/ed/collegescorecard/v1/schools?school.state=" + name + "&fields=school.name,school.city,school.school_url" + "&api_key=ugQuY3Rxl5tYqCXMIvIGfUGbL5t3hMrSFNlo5NBb";
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response){
+            console.log(response.results);
+        });
+    } 
+})
+    
