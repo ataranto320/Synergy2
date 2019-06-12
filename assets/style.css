@@ -18,8 +18,10 @@ body,html{
            margin: 0;
            padding: 0;
            display: inline-block;
-           overflow: hidden;
+           overflow: visible;
            position: relative;
+           /* font-family: 'Roboto', sans-serif; */
+          
        }
 
        #slide{
@@ -32,10 +34,24 @@ body,html{
 
 
 .fbi, .card-body {
-  font-size: 15px !important;
-  color: blue !important;
+  font-size: 20px !important;
+  color: crimson !important;
+}
+
+.card-header {
+  font-size: 20px;
+  background-color: black !important;
 }
 
 .card {
-    border: solid 2px blue !important;
+    border: solid 2px black !important;
+
+}
+
+#search, #clear {
+  width: 100px;
+}
+
+.jumbotron {
+  border: solid white 2px;  
 }
