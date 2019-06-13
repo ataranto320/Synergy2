@@ -139,12 +139,11 @@ function clear() {
    $('.results-card').empty(); 
 
 //USA Jobs API
-function getJob() {
+function getJob(job) {
     var apiKey = 'p7OF5vJVdOLJTzaO62kztnOMVmkGF6Nlt+fL0ThZRtg=';
-    var position = $("#job").val().trim();
 
     $.ajax({
-        url: 'https://data.usajobs.gov/api/Search?PositionTitle=' + position,
+        url: 'https://data.usajobs.gov/api/Search?PositionTitle=' + job,
         method: 'GET',
         headers: {
             "Authorization-Key": apiKey
@@ -158,6 +157,40 @@ function getJob() {
 
 }
 
+//College API
+$( "#form" ).submit(function( event ) {
+    event.preventDefault();
+    var name = $( "#state" ).val()
+    ajaxCall(name);
+});
+
+function getSchool(name) {
+    var queryURL = "http://api.data.gov/ed/collegescorecard/v1/schools?school.state=" + name + "&fields=school.name,school.city,school.school_url,school.price_calculator_url" + "&api_key=ugQuY3Rxl5tYqCXMIvIGfUGbL5t3hMrSFNlo5NBb";
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response){
+        console.log(response); {
+            var len = 5 //response.results.length for all results //number
+            for (var i = 0; i < len; i++){
+                var schoolObject = response.results[i]
+                $("#school-results").append("<p>" + schoolObject["school.name"])
+                $("#school-results").append("<p>" + schoolObject["school.city"])
+                $("#school-results").append("<p>" + schoolObject["school.school_url"])
+                $("#school-results").append("<p>" + schoolObject["school.price_calculator_url"])
+
+                //smaller text size
+                // function smallText(){
+                //     document.getElementById("#school-results").style.fontSize = "xx-small";
+
+                // $("#slide").fadeOut("slow");
+                }
+
+            }
+        
+        
+    });
+} 
 
 $(document).on("click", "#search", function (event) {
 
@@ -186,12 +219,11 @@ $(document).on("click", "#search", function (event) {
     database.ref().push(newSearch);
 
     $(".results-card").append(`<div class='jumbotron bg-primary text-white col-6'><p class=''>Your Profile</p><p>You are ${age} years old</p><p>You are ${status}</p><p>You have ${kids} children</p><p>You have are a ${job} individual</p><p>Your desired state to live is ${state}</p></div>`);
-
+    
+    getSchool(state);
     fbiCall();
     fbiCall2();
     fbiCall3();
-   
-
     getJob();
 
     $("#city").val("");
@@ -203,8 +235,10 @@ $(document).on("click", "#search", function (event) {
 })
 
 $(document).ready(function () {
+
     $("#spinner").hide();
 })
 
 $(document).on("click", "#clear", clear);
    
+
