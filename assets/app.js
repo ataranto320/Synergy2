@@ -117,6 +117,7 @@ function fbiCall() {
     })
 }
 
+
 // Zillow API call
 
 function zillowCall() {
@@ -136,6 +137,25 @@ function zillowCall() {
 
 function clear() {
    $('.results-card').empty(); 
+
+//USA Jobs API
+function getJob() {
+    var apiKey = 'p7OF5vJVdOLJTzaO62kztnOMVmkGF6Nlt+fL0ThZRtg=';
+    var position = $("#job").val().trim();
+
+    $.ajax({
+        url: 'https://data.usajobs.gov/api/Search?PositionTitle=' + position,
+        method: 'GET',
+        headers: {
+            "Authorization-Key": apiKey
+        }
+    }).then(function (response) {
+        console.log(response);
+        console.log(response.SearchResult.SearchResultCountAll);
+        console.log(response.SearchResult.SearchResultItems[0]);
+        $("#job-results").append("<p>" + response.SearchResult.SearchResultCountAll + "</p>");
+    });
+
 }
 
 
@@ -148,8 +168,8 @@ $(document).on("click", "#search", function (event) {
     var age = $("#age").val().trim();
     var status = $("#status").val().trim();
     var kids = $("#kids").val().trim();
-    var job = $("#job").val().trim();
-
+    var job = $("#job-status").val().trim();
+    var position = $("#job").val().trim();
 
     var newSearch = {
         state: state,
@@ -157,6 +177,7 @@ $(document).on("click", "#search", function (event) {
         mstatus: status,
         kids: kids,
         job: job
+        position: position
     }
 
     console.log(newSearch);
@@ -169,14 +190,15 @@ $(document).on("click", "#search", function (event) {
     fbiCall();
     fbiCall2();
     fbiCall3();
-    zillowCall();
+   
 
+    getJob();
 
-    // $("#age").val("");
-    // $("#state").val("");
-    // $("#status").val("");
-    // $("#kids").val("");
-    // $("#job").val("");
+    $("#city").val("");
+    $("#age").val("");
+    $("#status").val("");
+    $("#kids").val("");
+    $('#job').val("");
 
 })
 
@@ -185,3 +207,4 @@ $(document).ready(function () {
 })
 
 $(document).on("click", "#clear", clear);
+   
