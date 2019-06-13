@@ -67,12 +67,11 @@ function fbiCall() {
 }
 
 //USA Jobs API
-function getJob() {
+function getJob(job) {
     var apiKey = 'p7OF5vJVdOLJTzaO62kztnOMVmkGF6Nlt+fL0ThZRtg=';
-    var position = $("#job").val().trim();
 
     $.ajax({
-        url: 'https://data.usajobs.gov/api/Search?PositionTitle=' + position,
+        url: 'https://data.usajobs.gov/api/Search?PositionTitle=' + job,
         method: 'GET',
         headers: {
             "Authorization-Key": apiKey
@@ -85,6 +84,40 @@ function getJob() {
     });
 }
 
+//College API
+$( "#form" ).submit(function( event ) {
+    event.preventDefault();
+    var name = $( "#state" ).val()
+    ajaxCall(name);
+});
+
+function getSchool(name) {
+    var queryURL = "http://api.data.gov/ed/collegescorecard/v1/schools?school.state=" + name + "&fields=school.name,school.city,school.school_url,school.price_calculator_url" + "&api_key=ugQuY3Rxl5tYqCXMIvIGfUGbL5t3hMrSFNlo5NBb";
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response){
+        console.log(response); {
+            var len = 5 //response.results.length for all results //number
+            for (var i = 0; i < len; i++){
+                var schoolObject = response.results[i]
+                $("#school-results").append("<p>" + schoolObject["school.name"])
+                $("#school-results").append("<p>" + schoolObject["school.city"])
+                $("#school-results").append("<p>" + schoolObject["school.school_url"])
+                $("#school-results").append("<p>" + schoolObject["school.price_calculator_url"])
+
+                //smaller text size
+                // function smallText(){
+                //     document.getElementById("#school-results").style.fontSize = "xx-small";
+
+                // $("#slide").fadeOut("slow");
+                }
+
+            }
+        
+        
+    });
+} 
 
 $(document).on("click", "#search", function (event) {
     event.preventDefault();
@@ -108,7 +141,8 @@ $(document).on("click", "#search", function (event) {
     database.ref().push(newSearch);
 
     fbiCall();
-    getJob();
+    getJob(position);
+    getSchool(state);
 
     $("#city").val("");
     $("#age").val("");
@@ -120,4 +154,49 @@ $(document).on("click", "#search", function (event) {
 
 $(document).ready(function () {
     $(".results-card").hide();
+
+    // $( "#form" ).submit(function( event ) {
+    //     event.preventDefault();
+    //     var name = $( "#state" ).val()
+    //     getSchool(name);
+    // });
+
+    // function getSchool(name) {
+    //     var queryURL = "http://api.data.gov/ed/collegescorecard/v1/schools?school.state=" + name + "&fields=school.name,school.city,school.school_url" + "&api_key=ugQuY3Rxl5tYqCXMIvIGfUGbL5t3hMrSFNlo5NBb";
+    //     $.ajax({
+    //         url: queryURL,
+    //         method: "GET"
+    //     }).then(function(response){
+    //         console.log(response.results);
+    //     });
+    // } 
+
+    // $(changeImg(){
+    //     images = $("#slide").hide();
+    //     var current = 0;
+    //     setInterval(function({
+    //         var next = ((current + 1) % images.length);
+    //         images.eq(current).fadeOut();
+    //         images.eq(next).fadeIn();
+    //         current = next;
+    //     }));
+    // });
+
+    // slide fade effect 
+    // var current = 0,
+    // // slides = document.getElementById("slide");
+
+    // setInterval(function(){
+    //     for (var i = 0; i < images.length; i++){
+    //         images[i].style.opacity = 0;
+    //     }
+    //     current =(current != images.length - 1) ?
+    //     current + 1 : 0;
+    //     images[current].style.opacity = 1;
+    // }, 5000);
+
+    // var links = schoolObject.links;
+    // for (var i = 0; i < links.length; i++) {
+    //     var linkHref = 
+    // }
 })

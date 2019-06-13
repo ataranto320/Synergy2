@@ -35,9 +35,9 @@
 
 //college api
 $(document).ready(function() {
-   $( "#test" ).submit(function( event ) {
+   $( "#form" ).submit(function( event ) {
         event.preventDefault();
-        var name = $( "input:first" ).val()
+        var name = $( "#state" ).val()
         ajaxCall(name);
     });
 

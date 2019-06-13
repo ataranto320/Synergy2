@@ -18,8 +18,10 @@ body,html{
            margin: 0;
            padding: 0;
            display: inline-block;
-           overflow: hidden;
+           /* overflow: hidden; */
            position: relative;
+           background-size: cover;
+           /* background-repeat: repeat-y; */
        }
 
        #slide{
@@ -28,7 +30,12 @@ body,html{
            z-index: -1;
            position: absolute;
            pointer-events: none;
+           /* transition: opacity .5s ease-in; */
        }
+
+       /* #slide + #slide {
+          opacity: 0;
+       } */
 
 
 
