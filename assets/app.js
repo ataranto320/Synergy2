@@ -70,9 +70,10 @@ function fbiCall() {
 function getJob() {
     var apiKey = 'p7OF5vJVdOLJTzaO62kztnOMVmkGF6Nlt+fL0ThZRtg=';
     var position = $("#job").val().trim();
+    var state = $("#state").val().trim();
 
     $.ajax({
-        url: 'https://data.usajobs.gov/api/Search?PositionTitle=' + position,
+        url: 'https://data.usajobs.gov/api/Search?LocationName=' + state + '&PositionTitle=' + position,
         method: 'GET',
         headers: {
             "Authorization-Key": apiKey
