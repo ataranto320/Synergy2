@@ -12,34 +12,66 @@ p {
 }
 
 
+
 body,html{
            height: 100%;
            width: 100%;
            margin: 0;
            padding: 0;
            display: inline-block;
-
            position: relative;
            background-size: cover;
-           
            overflow: visible;
            position: relative;
            /* font-family: 'Roboto', sans-serif; */
           
        }
 
-       #slide{
-           height: 100%;
-           width: 100%;
-           z-index: -1;
-           position: absolute;
-           pointer-events: none;
-           /* transition: opacity .5s ease-in; */
-       }
+#slide {
+        height: 100%;
+         width: 100%;
+         z-index: -1;
+         position: fixed;
+         pointer-events: none;
+    
+        background-repeat: no-repeat;
+        background-position: left top;
+        -webkit-animation-duration: 3s;
+        animation-duration: 3s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+     }
+     
+     @-webkit-keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+     }
+     
+     @keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+     }
+     
+     .fadeIn {
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+     }
 
-       /* #slide + #slide {
-          opacity: 0;
-       } */
+     @-webkit-keyframes fadeOut {
+      0% {opacity: 1;}
+      100% {opacity: 0;}
+   }
+   
+   @keyframes fadeOut {
+      0% {opacity: 1;}
+      100% {opacity: 0;}
+   }
+   
+   .fadeOut {
+      -webkit-animation-name: fadeOut;
+      animation-name: fadeOut;
+   }
+       
 
 
 .fbi, .card-body {
@@ -59,8 +91,4 @@ body,html{
 
 #search, #clear {
   width: 100px;
-}
-
-.jumbotron {
-  border: solid white 2px;  
 }
