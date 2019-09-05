@@ -92,3 +92,42 @@ body,html{
 #search, #clear {
   width: 100px;
 }
+
+
+
+     @-webkit-keyframes fadeOut {
+      0% {opacity: 1;}
+      100% {opacity: 0;}
+   }
+   
+   @keyframes fadeOut {
+      0% {opacity: 1;}
+      100% {opacity: 0;}
+   }
+   
+   .fadeOut {
+      -webkit-animation-name: fadeOut;
+      animation-name: fadeOut;
+   }
+       
+
+/* 
+.fbi, .card-body {
+  font-size: 20px !important;
+  color: crimson !important;
+}
+
+.card-header {
+  font-size: 20px;
+  background-color: black !important;
+}
+
+.card {
+    border: solid 2px black !important;
+
+}
+
+#search, #clear {
+  width: 100px;
+}
+
